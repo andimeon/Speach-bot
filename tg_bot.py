@@ -45,7 +45,7 @@ def main():
     load_dotenv()
     tg_token = os.getenv('TG_TOKEN')
     tg_user_id = os.getenv('TG_USED_ID')
-    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'Speach Devman Bot-955de50b4d43.json'
+    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'google-credentials.json'
     tg_bot = Bot(tg_token)
     
     updater = Updater(tg_token, use_context=True)
