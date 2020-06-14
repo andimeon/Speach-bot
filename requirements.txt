@@ -1,0 +1,6 @@
+protobuf==3.12.2
+python-dotenv==0.13.0
+vk_api==11.8.0
+dialogflow==1.0.0
+google-api-core==1.20.0
+python-telegram-bot==12.7
