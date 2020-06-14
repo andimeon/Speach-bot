@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import os
 from google.api_core.exceptions import InvalidArgument
 from telegram import Bot
-from telegram.ext import Updater, MessageHandler, Filters
+from telegram.ext import Updater, MessageHandler, Filters, CommandHandler
 import dialogflow_v2 as dialogflow
 
 logger = logging.getLogger('Speach_bot')
@@ -20,6 +20,10 @@ class TelegramLogsHandler(logging.Handler):
     def emit(self, record):
         log_entry = self.format(record)
         self.tg_bot.send_message(chat_id=self.chat_id, text=log_entry)
+        
+
+def start(update, context):
+    context.bot.send_message(chat_id=update.effective_chat.id, text="Вы активировали бота")
 
 
 def dialogflow_answer(update, context):
@@ -53,6 +57,9 @@ def main():
 
     logger.addHandler(TelegramLogsHandler(tg_bot, tg_user_id))
     logger.warning('Бот начал работу')
+    
+    start_handler = CommandHandler('start', start)
+    dispatcher.add_handler(start_handler)
     
     try:
         dialogflow_handler = MessageHandler(Filters.text, dialogflow_answer)
