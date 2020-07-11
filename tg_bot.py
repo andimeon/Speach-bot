@@ -34,7 +34,7 @@ def dialogflow_answer(update, context):
 
 
 def detect_intent_texts(session_id, text_message, language_code):
-    project_id = os.getenv('PROJECT_ID')
+    project_id = os.getenv('GOOGLE_CLOUD_PROJECT_ID')
     session_client = dialogflow.SessionsClient()
     session = session_client.session_path(project_id, session_id)
     
