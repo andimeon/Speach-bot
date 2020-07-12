@@ -1,60 +1,61 @@
-# Боты, демонстрирующий интеграцию с искуственнным интелектом
+# Боты, демонстрирующий интеграцию с искусственным интеллектом
 
 Данный бот ведет диалог с пользователем по определенным вопросам. В процессе диалога происходит обучение бота.
 Представлены боты для площадок Telegram и VK (Вконтакте). В качестве нейросети использован сервис Dialogflow.
 
-### Переменные и среда окружения
+## Переменные и среда окружения
+
 Доступны 4 переменных окружения:
 
 `TG_TOKEN` - токен от бота в телеграмме.
 
 `TG_USED_ID` - ID владельца бота для уведомления о состоянии ботов.
 
-`VK_TOKEN` - токен от бота в VK
+`VK_TOKEN` - токен от бота в VK.
 
 `PROJECT_ID` - ID проекта на платформе Google Cloud.
 
 Среда окружения активируется с помощью активации `[GOOGLE_APPLICATION_CREDENTIALS ]`. Инструкция по получению страницы
-json с ключами находится с разделе 
-[Creating a service account](https://cloud.google.com/docs/authentication/production#creating_a_service_account).
+json с ключами находится с разделе [Creating a service account](https://cloud.google.com/docs/authentication/production#creating_a_service_account).
 
-### Локальный запуск на машине
+## Локальный запуск на машине
+
 Переменные окружения активируются либо с помощью библиотеки `dotenv`. Тогда переменные необходимо поместить в файл
- `.env`. Либо использованием библиотеки [direnv](https://github.com/direnv/direnv). Установку и активацию 
-библиотеки необходимо провести согласно инструкции для своей оболочки. 
-В файл `.envrc` который должен находится в папке проекта нужно поместить переменные окружения.
+ `.env`. Либо использованием библиотеки [direnv](https://github.com/direnv/direnv). Установку и активацию библиотеки необходимо провести согласно инструкции для своей оболочки.В файл `.envrc` который должен находится в папке проекта нужно поместить переменные окружения.
 После этого, при входе в папку и запуске скриптов ботов переменные будут подгружаться автоматически (необходимо только
 исправить определение переменных в скрипте, согласно инструкциям в библиотеке).
 ***
-##### Перед дальнейшими шагами рекомендуется активировать виртуальное окружение.
+
+### Перед дальнейшими шагами рекомендуется активировать виртуальное окружение
+
 Скрипт адоптирован под Python ver 3.8.0
 Используйте `pip` (или `pip3`, есть конфликт с Python2) для установки зависимостей:
-```
+
+```bash
 pip3 install -r requirements.txt
 ```
+
 Запуск проекта осуществляется из командной строки:
-```python
-~ python3 tg_bot.py
-~ python3 vk_bot.py
+
+```bash
+python3 tg_bot.py
+python3 vk_bot.py
 ```
 
-### Как задеплоить проект на сервис [heroku](https://dashboard.heroku.com/apps)
-Необходимо создать новое приложение на сервисе и подключить Github с репозиторием, где находится бот. 
-Нужно создать [Procfile](https://devcenter.heroku.com/articles/procfile). Переменные окружения поместить в 
-[settings](https://dashboard.heroku.com/apps/devman-telegram-bot/settings) `Config var`. Активация окружения Google 
-Cloud производится созданием 
-[bildpack](https://github.com/gerywahyunugraha/heroku-google-application-credentials-buildpack).
-После деплоя проекта необходимо активировать скрипты в разделе 
-[Resources](https://dashboard.heroku.com/apps/speach-bot/resources).
+## Как задеплоить проект на сервис [heroku](https://dashboard.heroku.com/apps)
 
-### Пример работы скрипта
+Необходимо создать новое приложение на сервисе и подключить Github с репозиторием, где находится бот. Нужно создать [Procfile](https://devcenter.heroku.com/articles/procfile). Переменные окружения поместить в [settings](https://dashboard.heroku.com/apps/devman-telegram-bot/settings) `Config var`. Активация окружения Google Cloud производится созданием [bildpack](https://github.com/gerywahyunugraha/heroku-google-application-credentials-buildpack).
+После деплоя проекта необходимо активировать скрипты в разделе [Resources](https://dashboard.heroku.com/apps/speach-bot/resources).
+
+## Пример работы скрипта
+
 Telegram
 
-![](screenshots/tg_bot.gif)
+![screenshot](screenshots/tg_bot.gif)
 
 Vk (Вконтакте)
 
-![](screenshots/vk_bot.gif)
+![screenshot](screenshots/vk_bot.gif)
 
 ## Цель проекта
 
