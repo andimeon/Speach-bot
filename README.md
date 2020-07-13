@@ -75,6 +75,29 @@ Vk (Вконтакте)
 
 ![screenshot](screenshots/vk_bot.gif)
 
+## Тренер фраз для искусственного интеллекта
+
+Для того, чтобы загрузить на платформу [Dialogflow](https://dialogflow.cloud.google.com) тренировочные вопросы и ответы можно воспользоваться скриптом `create_intent.py`
+
+```python
+python create_intent.py
+```
+
+Список вопросов и ответов должен быть оформлен в json файле (например questions.json) в следующем формате:
+
+```json
+{
+    Intent: {
+        "question": [
+            "here is question",
+            "here is question",
+            "here is question",
+        ],
+        "answer": "here is answer"
+    },
+}
+```
+
 ## Цель проекта
 
 Код написан в образовательных целях на онлайн-курсе для веб-разработчиков [dvmn.org](https://dvmn.org/).
