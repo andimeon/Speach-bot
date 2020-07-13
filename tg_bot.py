@@ -7,7 +7,6 @@ from telegram.ext import Updater, MessageHandler, Filters, CommandHandler
 import dialogflow_v2 as dialogflow
 
 logger = logging.getLogger('Speach_bot')
-logger.setLevel(logging.WARNING)
 
 
 class TelegramLogsHandler(logging.Handler):
@@ -55,6 +54,7 @@ def main():
     updater = Updater(tg_token, use_context=True)
     dispatcher = updater.dispatcher
 
+    logger.setLevel(logging.WARNING)
     logger.addHandler(TelegramLogsHandler(tg_bot, tg_user_id))
     logger.warning('Бот начал работу')
     

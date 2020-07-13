@@ -10,7 +10,6 @@ import dialogflow_v2 as dialogflow
 from google.api_core.exceptions import InvalidArgument
 
 logger = logging.getLogger('Speach_bot')
-logger.setLevel(logging.WARNING)
 
 
 def dialogflow_answer(event, vk_api):
@@ -49,6 +48,7 @@ if __name__ == "__main__":
     vk_token = os.getenv('VK_TOKEN')
     vk_session = vk_api.VkApi(token=vk_token)
 
+    logger.setLevel(logging.WARNING)
     logger.addHandler(TelegramLogsHandler(tg_bot, tg_user_id))
     
     vk_api = vk_session.get_api()
