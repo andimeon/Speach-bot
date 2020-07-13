@@ -54,9 +54,9 @@ def main():
     updater = Updater(tg_token, use_context=True)
     dispatcher = updater.dispatcher
 
-    logger.setLevel(logging.WARNING)
+    logger.setLevel(logging.INFO)
     logger.addHandler(TelegramLogsHandler(tg_bot, tg_user_id))
-    logger.warning('Бот начал работу')
+    logger.info('Бот начал работу')
     
     start_handler = CommandHandler('start', start)
     dispatcher.add_handler(start_handler)
