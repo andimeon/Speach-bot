@@ -37,10 +37,10 @@ def train_intents(project_id):
 
 def main():
     load_dotenv()
-    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'Speach Devman Bot-955de50b4d43.json'
+    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.getenv('GOOGLE_CLOUD_KEY_JSON')
     project_id = os.getenv('PROJECT_ID')
     
-    with open('questions.json', 'r', encoding='utf-8') as file:
+    with open(os.getenv('QUESTION_JSON'), 'r', encoding='utf-8') as file:
         intents = json.load(file)
     
     for intent in intents:

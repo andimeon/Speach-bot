@@ -41,7 +41,7 @@ def detect_intent_texts(session_id, text_message, language_code):
 
 
 if __name__ == "__main__":
-    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'google-credentials.json'
+    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.getenv('GOOGLE_CLOUD_KEY_JSON')
     load_dotenv()
     tg_user_id = os.getenv('TG_USED_ID')
     tg_bot = Bot(os.getenv('TG_TOKEN'))

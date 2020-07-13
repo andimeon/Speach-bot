@@ -49,7 +49,7 @@ def main():
     load_dotenv()
     tg_token = os.getenv('TG_TOKEN')
     tg_user_id = os.getenv('TG_USED_ID')
-    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'google-credentials.json'
+    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.getenv('GOOGLE_CLOUD_KEY_JSON')
     tg_bot = Bot(tg_token)
     
     updater = Updater(tg_token, use_context=True)
