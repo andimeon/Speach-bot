@@ -48,7 +48,8 @@ def main():
         training_phrases_parts = intents[intent]['questions']
         message_texts = [intents[intent]['answer']]
         create_intent(project_id, display_name, training_phrases_parts, message_texts)
-        train_intents(project_id)
+    
+    train_intents(project_id)
 
 
 if __name__ == '__main__':
