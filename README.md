@@ -1,4 +1,4 @@
-# Боты, демонстрирующий интеграцию с искусственным интеллектом
+# Боты, демонстрирующие интеграцию с искусственным интеллектом
 
 Данный бот ведет диалог с пользователем по определенным вопросам. В процессе диалога происходит обучение бота.
 Представлены боты для площадок Telegram и VK (Вконтакте). В качестве нейросети использован сервис Dialogflow.
@@ -67,16 +67,6 @@ python vk_bot.py
 Необходимо создать новое приложение на сервисе и подключить Github с репозиторием, где находится бот. Нужно создать [Procfile](https://devcenter.heroku.com/articles/procfile). Переменные окружения поместить в [settings](https://dashboard.heroku.com/apps/devman-telegram-bot/settings) `Config var`. Активация окружения Google Cloud производится созданием [bildpack](https://github.com/gerywahyunugraha/heroku-google-application-credentials-buildpack).
 После деплоя проекта необходимо активировать скрипты в разделе [Resources](https://dashboard.heroku.com/apps/speach-bot/resources).
 
-## Пример работы скрипта
-
-Telegram
-
-![screenshot](screenshots/tg_bot.gif)
-
-Vk (Вконтакте)
-
-![screenshot](screenshots/vk_bot.gif)
-
 ## Тренер фраз для искусственного интеллекта
 
 Для того, чтобы загрузить на платформу [Dialogflow](https://dialogflow.cloud.google.com) тренировочные вопросы и ответы можно воспользоваться скриптом `create_intent.py`
@@ -99,6 +89,16 @@ python create_intent.py
     },
 }
 ```
+
+## Пример работы скрипта
+
+Telegram
+
+![screenshot](screenshots/tg_bot.gif)
+
+Vk (Вконтакте)
+
+![screenshot](screenshots/vk_bot.gif)
 
 ## Цель проекта
 
