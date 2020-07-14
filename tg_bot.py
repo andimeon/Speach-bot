@@ -4,7 +4,7 @@ import os
 from google.api_core.exceptions import InvalidArgument
 from telegram import Bot
 from telegram.ext import Updater, MessageHandler, Filters, CommandHandler
-import dialogflow_v2 as dialogflow
+from detect_intent import detect_intent_texts
 
 
 logger = logging.getLogger('Speach_bot')
@@ -27,22 +27,12 @@ def start(update, context):
 
 
 def dialogflow_answer(update, context):
+    global project_id
     text_message = update.message.text
     session_id = update.effective_chat.id
-    text_answer = detect_intent_texts(session_id, text_message, 'ru')
+    intent = detect_intent_texts(project_id, session_id, text_message, 'ru')
+    text_answer = intent.fulfillment_text
     context.bot.send_message(chat_id=update.effective_chat.id, text=text_answer)
-
-
-def detect_intent_texts(session_id, text_message, language_code):
-    global project_id
-    session_client = dialogflow.SessionsClient()
-    session = session_client.session_path(project_id, session_id)
-    
-    text_input = dialogflow.types.TextInput(text=text_message, language_code=language_code)
-    query_input = dialogflow.types.QueryInput(text=text_input)
-    response = session_client.detect_intent(session=session, query_input=query_input)
-    
-    return response.query_result.fulfillment_text
 
 
 if __name__ == '__main__':
