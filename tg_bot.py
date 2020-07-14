@@ -6,6 +6,7 @@ from telegram import Bot
 from telegram.ext import Updater, MessageHandler, Filters, CommandHandler
 import dialogflow_v2 as dialogflow
 
+
 logger = logging.getLogger('Speach_bot')
 
 
@@ -33,7 +34,7 @@ def dialogflow_answer(update, context):
 
 
 def detect_intent_texts(session_id, text_message, language_code):
-    project_id = os.getenv('GOOGLE_CLOUD_PROJECT_ID')
+    global project_id
     session_client = dialogflow.SessionsClient()
     session = session_client.session_path(project_id, session_id)
     
@@ -44,11 +45,13 @@ def detect_intent_texts(session_id, text_message, language_code):
     return response.query_result.fulfillment_text
 
 
-def main():
+if __name__ == '__main__':
     load_dotenv()
     tg_token = os.getenv('TG_TOKEN')
     tg_user_id = os.getenv('TG_USED_ID')
     os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.getenv('GOOGLE_CLOUD_KEY_JSON')
+    project_id = os.getenv('GOOGLE_CLOUD_PROJECT_ID')
+
     tg_bot = Bot(tg_token)
     
     updater = Updater(tg_token, use_context=True)
@@ -68,7 +71,3 @@ def main():
         logger.exception('Ошибка в запросе к Dialogflow')
     
     updater.start_polling()
-
-
-if __name__ == '__main__':
-    main()

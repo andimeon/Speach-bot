@@ -25,7 +25,7 @@ def dialogflow_answer(event, vk_api):
 
 
 def detect_intent_texts(session_id, text_message, language_code):
-    project_id = os.getenv('GOOGLE_CLOUD_PROJECT_ID')
+    global project_id
     session_client = dialogflow.SessionsClient()
     session = session_client.session_path(project_id, session_id)
     
@@ -44,6 +44,7 @@ if __name__ == "__main__":
     load_dotenv()
     tg_user_id = os.getenv('TG_USED_ID')
     tg_bot = Bot(os.getenv('TG_TOKEN'))
+    project_id = os.getenv('GOOGLE_CLOUD_PROJECT_ID')
     
     vk_token = os.getenv('VK_TOKEN')
     vk_session = vk_api.VkApi(token=vk_token)
