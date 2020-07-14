@@ -24,32 +24,36 @@ def create_intent(project_id, display_name, training_phrases_parts, message_text
         messages=[message])
     
     response = intents_client.create_intent(parent, intent)
-    print('Intent created: {}'.format(response))
 
+    return response
+    
 
 def train_intents(project_id):
     train_client = dialogflow.AgentsClient()
     parent = train_client.project_path(project_id)
     response = train_client.train_agent(parent)
 
-    print('Train made: {}'.format(response))
+    return response
 
 
 def main():
     load_dotenv()
-    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'Speach Devman Bot-955de50b4d43.json'
+    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.getenv('GOOGLE_CLOUD_KEY_JSON')
     project_id = os.getenv('PROJECT_ID')
     
-    with open('questions.json', 'r', encoding='utf-8') as file:
+    with open(os.getenv('QUESTION_JSON'), 'r', encoding='utf-8') as file:
         intents = json.load(file)
     
     for intent in intents:
         display_name = intent
         training_phrases_parts = intents[intent]['questions']
         message_texts = [intents[intent]['answer']]
-        create_intent(project_id, display_name, training_phrases_parts, message_texts)
-        train_intents(project_id)
+        create_response = create_intent(project_id, display_name, training_phrases_parts, message_texts)
+        print('Intent created: {}'.format(create_response))
 
+    
+    train_response = train_intents(project_id)
+    print('Train made: {}'.format(train_response))
 
 if __name__ == '__main__':
     main()

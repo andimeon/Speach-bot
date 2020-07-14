@@ -5,7 +5,7 @@
 
 ## Переменные и среда окружения
 
-Доступны 4 переменных окружения:
+Доступны 6 переменных окружения:
 
 `TG_TOKEN` - токен от бота в телеграмме.
 
@@ -15,7 +15,9 @@
 
 `PROJECT_ID` - ID проекта на платформе Google Cloud.
 
-`GOOGLE_APPLICATION_CREDENTIALS` - переменная среды платформе Google Cloud.
+`GOOGLE_CLOUD_KEY_JSON` - переменная среды платформе Google Cloud `[GOOGLE_APPLICATION_CREDENTIALS]`.
+
+`QUESTION_JSON` - путь к файлу json с тренировочными вопросами и ответами на эти вопросы.
 
 Для начала небходимо указать учетные данные для аутентификации в коде приложения, установив переменную среды `[GOOGLE_APPLICATION_CREDENTIALS]`. Для этого нужно скачать [json file](https://console.cloud.google.com/apis/credentials/serviceaccountkey?_ga=2.17190073.1666737017.1594636150-802301315.1594035578), содержащий `service account key`. Дальше в коде нужно заменить PATH на путь к файлу json и активировать переменную
 
@@ -74,6 +76,29 @@ Telegram
 Vk (Вконтакте)
 
 ![screenshot](screenshots/vk_bot.gif)
+
+## Тренер фраз для искусственного интеллекта
+
+Для того, чтобы загрузить на платформу [Dialogflow](https://dialogflow.cloud.google.com) тренировочные вопросы и ответы можно воспользоваться скриптом `create_intent.py`
+
+```python
+python create_intent.py
+```
+
+Список вопросов и ответов должен быть оформлен в json файле (например questions.json) в следующем формате:
+
+```json
+{
+    Intent: {
+        "question": [
+            "here is question",
+            "here is question",
+            "here is question",
+        ],
+        "answer": "here is answer"
+    },
+}
+```
 
 ## Цель проекта
 
