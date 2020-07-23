@@ -31,7 +31,7 @@ def start(update, context):
 
 def dialogflow_answer(update, context):
     text_message = update.message.text
-    session_id = update.effective_chat.id
+    session_id = f'tg-{update.effective_chat.id}'
     intent = detect_intent_texts(GOOGLE_CLOUD_PROJECT_ID, session_id, text_message, 'ru')
     text_answer = intent.fulfillment_text
     context.bot.send_message(chat_id=update.effective_chat.id, text=text_answer)
@@ -47,7 +47,8 @@ if __name__ == '__main__':
 
     tg_bot = Bot(tg_token)
     
-    dispatcher = Updater(tg_token, use_context=True).dispatcher
+    updater = Updater(tg_token, use_context=True)
+    dispatcher = updater.dispatcher
 
     logger.setLevel(logging.INFO)
     logger.addHandler(TelegramLogsHandler(tg_bot, tg_user_id))

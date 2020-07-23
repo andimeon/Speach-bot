@@ -17,9 +17,9 @@ logger = logging.getLogger('Speach_bot')
 
 def dialogflow_answer(event, vk_api):
     global project_id
-    user_id = event.user_id
+    session_id = f'vk-{event.user_id}'
     user_message = event.text
-    intent = detect_intent_texts(GOOGLE_CLOUD_PROJECT_ID, user_id, user_message, 'ru')
+    intent = detect_intent_texts(GOOGLE_CLOUD_PROJECT_ID, session_id, user_message, 'ru')
     if not intent.intent.is_fallback:
         vk_api.messages.send(
             user_id=event.user_id,
