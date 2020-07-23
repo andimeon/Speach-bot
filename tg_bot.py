@@ -3,7 +3,6 @@ import os
 from functools import partial
 from dotenv import load_dotenv
 
-from google.api_core.exceptions import InvalidArgument
 from telegram import Bot
 from telegram.ext import Updater, MessageHandler, Filters, CommandHandler
 
@@ -58,7 +57,7 @@ if __name__ == '__main__':
     
     try:
         dispatcher.add_handler(MessageHandler(Filters.text, dialogflow_answer))
-    except InvalidArgument:
+    except Exception:
         logger.exception('Ошибка в запросе к Dialogflow')
     
     updater.start_polling()
