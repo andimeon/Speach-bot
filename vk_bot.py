@@ -1,14 +1,16 @@
-import logging
-from telegram import Bot
-from tg_bot import TelegramLogsHandler
 import os
+import logging
 import random
+
+from dotenv import load_dotenv
+from telegram import Bot
 import vk_api
 from vk_api.longpoll import VkLongPoll, VkEventType
-from dotenv import load_dotenv
 import dialogflow_v2 as dialogflow
 from google.api_core.exceptions import InvalidArgument
+
 from detect_intent import detect_intent_texts
+from tg_bot import TelegramLogsHandler
 
 logger = logging.getLogger('Speach_bot')
 
@@ -17,7 +19,7 @@ def dialogflow_answer(event, vk_api):
     global project_id
     user_id = event.user_id
     user_message = event.text
-    intent = detect_intent_texts(project_id, user_id, user_message, 'ru')
+    intent = detect_intent_texts(GOOGLE_CLOUD_PROJECT_ID, user_id, user_message, 'ru')
     if not intent.intent.is_fallback:
         vk_api.messages.send(
             user_id=event.user_id,
@@ -28,10 +30,11 @@ def dialogflow_answer(event, vk_api):
 
 if __name__ == "__main__":
     os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.getenv('GOOGLE_CLOUD_KEY_JSON')
+
     load_dotenv()
     tg_user_id = os.getenv('TG_USED_ID')
     tg_bot = Bot(os.getenv('TG_TOKEN'))
-    project_id = os.getenv('GOOGLE_CLOUD_PROJECT_ID')
+    GOOGLE_CLOUD_PROJECT_ID = os.getenv('GOOGLE_CLOUD_PROJECT_ID')
     
     vk_token = os.getenv('VK_TOKEN')
     vk_session = vk_api.VkApi(token=vk_token)
