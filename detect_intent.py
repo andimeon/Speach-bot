@@ -1,7 +1,7 @@
 import dialogflow_v2 as dialogflow
 
 
-def detect_intent_texts(project_id,session_id, text_message, language_code):
+def detect_intent_texts(project_id, session_id, text_message, language_code):
     session_client = dialogflow.SessionsClient()
     session = session_client.session_path(project_id, session_id)
     
