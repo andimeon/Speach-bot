@@ -7,7 +7,6 @@ from telegram import Bot
 import vk_api
 from vk_api.longpoll import VkLongPoll, VkEventType
 import dialogflow_v2 as dialogflow
-from google.api_core.exceptions import InvalidArgument
 
 from detect_intent import detect_intent_texts
 from tg_bot import TelegramLogsHandler
@@ -15,11 +14,15 @@ from tg_bot import TelegramLogsHandler
 logger = logging.getLogger('Speach_bot')
 
 
-def dialogflow_answer(event, vk_api):
-    global project_id
+def get_reply_from_dialogflow(event, vk_api):
     session_id = f'vk-{event.user_id}'
     user_message = event.text
-    intent = detect_intent_texts(GOOGLE_CLOUD_PROJECT_ID, session_id, user_message, 'ru')
+    
+    try:
+        intent = detect_intent_texts(GOOGLE_CLOUD_PROJECT_ID, session_id, user_message, 'ru')
+    except Exception:
+        logger.exception('Ошибка в запросе к Dialogflow')
+    
     if not intent.intent.is_fallback:
         vk_api.messages.send(
             user_id=event.user_id,
@@ -46,7 +49,5 @@ if __name__ == "__main__":
     longpoll = VkLongPoll(vk_session)
     for event in longpoll.listen():
         if event.type == VkEventType.MESSAGE_NEW and event.to_me:
-            try:
-                dialogflow_answer(event, vk_api)
-            except InvalidArgument:
-                logger.exception('Ошибка в запросе к Dialogflow')
+            get_reply_from_dialogflow(event, vk_api)
+            

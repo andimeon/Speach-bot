@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 
 from telegram import Bot
 from telegram.ext import Updater, MessageHandler, Filters, CommandHandler
+from google.api_core.exceptions import InvalidArgument
 
 from detect_intent import detect_intent_texts
 
@@ -28,10 +29,15 @@ def start(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text="Вы активировали бота")
 
 
-def dialogflow_answer(update, context):
+def get_reply_from_dialogflow(update, context):
     text_message = update.message.text
     session_id = f'tg-{update.effective_chat.id}'
-    intent = detect_intent_texts(GOOGLE_CLOUD_PROJECT_ID, session_id, text_message, 'ru')
+
+    try:
+        intent = detect_intent_texts(GOOGLE_CLOUD_PROJECT_ID, session_id, text_message, 'ru')
+    except Exception:
+        logger.exception('Ошибка в запросе к Dialogflow')
+
     text_answer = intent.fulfillment_text
     context.bot.send_message(chat_id=update.effective_chat.id, text=text_answer)
 
@@ -54,10 +60,6 @@ if __name__ == '__main__':
     logger.info('Бот начал работу')   
 
     dispatcher.add_handler(CommandHandler('start', start))
-    
-    try:
-        dispatcher.add_handler(MessageHandler(Filters.text, dialogflow_answer))
-    except Exception:
-        logger.exception('Ошибка в запросе к Dialogflow')
-    
+    dispatcher.add_handler(MessageHandler(Filters.text, get_reply_from_dialogflow))
+
     updater.start_polling()
